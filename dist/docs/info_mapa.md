@@ -1,0 +1,80 @@
+ATIVAÇÕES DE RUA
+- A1 – Espaço Missão BB
+- A2 – Cine’n’Play Petrobras
+- A3 – Estande Petrobras
+- A4 – Loja REC’n’Play 2026
+- A5 – Espaço Conecta
+- A6 – Sebrae na Rua
+- A7 – Central Sustentável Solar Coca-Cola
+- A8 – Universo Fanta
+- A9 – Fraldário e Amamentação Saber Viver
+- A10 – Laboratório de Formação Itinerante da Primeira Infância
+- A11 – Arena SESI de Robótica
+- A12 – Espaço CIn-UFPE
+- A13 – Hub de Direitos – ID Jovem
+- A14 – AWS Builder Center
+- A15 – Laboratório Urbano e Sonoro Nantes-Recife
+- A16 – Arena Pernambuco de Negócios
+- A17 – Carreta Smart Lab
+- A18 – CAT: Centro de Atendimento ao Turismo
+- A19 – Circuito Ella – A bike elétrica da Moura
+- A20 – Central de Direitos Humanos
+- A21 – Ayres For Fun | A garra é você!
+- A22 – Conexão Serpro: jogando com proteção e respeito
+- A23 – Video Booth 360° Music FM & Jovem Pan FM
+- A24 – Exafusca
+- A25 – Arena de Educação CESAR School
+- A26 – Drive-in SENAI: tecnologia industrial em movimento
+- A27 – Clandestino Café
+- A28 – Pina de Copacabana
+- A29 – Olha! Recife – Além das Portas; Sua Foto no Centro – Edição REC’n’Play
+PALCOS
+- P1 – Palco Recife Cidade da Música
+- P2 – Palco Jornada de MCs
+- P3 – Palco Sesc
+- P4 – Palco Som na Rural
+POSTO DE SAÚDE
+- PS – Posto Médico Sul
+- PS – Posto Médico Norte
+MOBILIDADE
+- M1 – Receptivo Caravanas de Estudante
+- M2 – Ponto Teletáxi
+- M3 – Ponto de Táxi e Aplicativos
+- M4 – Bicicletários
+FEIRAS
+- F1 – Alimentação – Economia Solidária
+- F2 – Feira Profissional STQP
+- F3 – Feira Prodarte de Empreendedorismo
+- F4 – Feira de Mulheres Empreendedoras
+- F5 – Feira Crabolando
+- F6 – Alimentação e Bebidas
+PRÉDIOS
+- 01 – Livraria Jaqueira
+- 02 – Paço Alfândega – Espaço Educa Recife’Play
+- 03 – Bunker Moeda
+- 04 – Fab Lab Rec
+- 05 – Arte Plural Galeria
+- 06 – Sede Porto Digital
+- 07 – Ti.Saúde
+- 08 – ETE Porto Digital
+- 09 – Ponto BB
+- 10 – Teatro Hermilo Borba Filho
+- 11 – Hub de Conexões
+- 12 – Software Center da Stellantis
+- 13 – Senac
+- 14 – CESAR School
+- 15 – Arena de Educação CESAR School
+- 16 – Moeda 50
+- 17 – Folha de Pernambuco
+- 18 – Arena Pernambuco de Negócios – NERD
+- 19 – Mercado Criativo de Pernambuco
+- 20 – Secretaria da Mulher de Pernambuco
+- 21 – UniAESO – Hub Patrocinadores
+- 22 – Casa Zero
+- 23 – Aponti
+- 24 – Paço do Frevo
+- 25 – Torre Malakoff
+- 26 – Moinho Recife
+- 27 – Cais do Sertão – Arena Gamer Banco do Brasil
+- 28 – Accenture Innovation Center
+Ok, temos como fazer agora um campo de busca simples, e programação específica da Saúde, contando com info das pessoas participantes
