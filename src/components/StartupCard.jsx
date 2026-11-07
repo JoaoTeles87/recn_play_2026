@@ -2,10 +2,8 @@ import React from 'react';
 import { Building, MapPin, Tag, Calendar, ExternalLink } from 'lucide-react';
 
 export function StartupCard({ startup, onLocateOnMap }) {
-  const isDay11 = startup.dayCode === '11';
-
   return (
-    <article className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-mobile-card hover:shadow-md transition-all relative overflow-hidden group">
+    <article className="bg-white rounded-2xl p-3.5 border border-slate-200/90 shadow-mobile-card hover:shadow-md transition-all relative overflow-hidden group">
       {/* Faixa indicadora do Edifício NERD */}
       <div className="absolute top-0 left-0 bottom-0 w-1 bg-orange-500" />
 
@@ -31,15 +29,10 @@ export function StartupCard({ startup, onLocateOnMap }) {
             {startup.segment}
           </span>
         </div>
-
-        {/* Descrição Institucional Neutra */}
-        <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-          {startup.description}
-        </p>
       </div>
 
       {/* Rodapé: Localização na Arena de Negócios / Edifício NERD */}
-      <div className="mt-3 pt-2.5 border-t border-slate-100 pl-1 flex items-center justify-between">
+      <div className="mt-2.5 pt-2 border-t border-slate-100 pl-1 flex items-center justify-between">
         <div className="flex items-center space-x-1.5 text-xs text-slate-600">
           <span className="w-5 h-5 rounded bg-orange-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">
             18
@@ -72,4 +65,3 @@ export function StartupCard({ startup, onLocateOnMap }) {
     </article>
   );
 }
-

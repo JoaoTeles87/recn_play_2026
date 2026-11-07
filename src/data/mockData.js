@@ -282,6 +282,24 @@ export const ALL_LOCATIONS = [
     pxX: 681,
     pxY: 366,
     type: 'medical'
+  },
+  {
+    id: 'food-f6',
+    name: 'Praça de Alimentação F6 (Arsenal)',
+    fullName: 'Alimentação e Bebidas F6',
+    code: 'F6',
+    pxX: 655,
+    pxY: 314,
+    type: 'food'
+  },
+  {
+    id: 'cafe-a27',
+    name: 'Clandestino Café (A27)',
+    fullName: 'Clandestino Café (Praça do Arsenal)',
+    code: 'A27',
+    pxX: 640,
+    pxY: 311,
+    type: 'food'
   }
 ];
 
@@ -686,8 +704,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Saúde e Gestão',
-    description: 'Solução tecnológica em gestão, dados e inovação aplicada a processos em saúde.',
-    tags: ['HealthTech', 'Gestão', 'Dados', 'Dia 11']
+    tags: ['HealthTech', 'Gestão', 'Dia 11']
   },
   {
     id: 'stp-2',
@@ -698,8 +715,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Medicina Preventiva',
-    description: 'Plataforma para antecipação de diagnósticos e gestão preditiva de linhas de cuidado clínico.',
-    tags: ['Prevenção', 'Diagnóstico', 'HealthTech', 'Dia 11']
+    tags: ['Prevenção', 'Diagnóstico', 'Dia 11']
   },
   {
     id: 'stp-3',
@@ -710,8 +726,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Saúde Animal e Vet',
-    description: 'Tecnologia de atendimento veterinário ágil e conexão entre tutores e clínicas veterinárias.',
-    tags: ['VetTech', 'Saúde Animal', 'Serviços', 'Dia 11']
+    tags: ['VetTech', 'Saúde Animal', 'Dia 11']
   },
   {
     id: 'stp-4',
@@ -722,8 +737,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Dispositivos e Hospitalar',
-    description: 'Inovações em equipamentos e soluções para suporte a rotinas hospitalares e clínicas.',
-    tags: ['Hospitalar', 'Dispositivos', 'HealthTech', 'Dia 11']
+    tags: ['Hospitalar', 'Dispositivos', 'Dia 11']
   },
   {
     id: 'stp-5',
@@ -734,8 +748,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Biotecnologia',
-    description: 'Pesquisa e Desenvolvimento em biotecnologia e diagnósticos avançados com base biológica inovadora.',
-    tags: ['BioTech', 'Pesquisa', 'Diagnóstico Avançado', 'Dia 11']
+    tags: ['BioTech', 'Diagnóstico Avançado', 'Dia 11']
   },
   {
     id: 'stp-6',
@@ -746,8 +759,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Agendamento e Clínicas',
-    description: 'Software de agendamento, prontuário integrado e fidelização de pacientes para clínicas.',
-    tags: ['SaaS Médico', 'Prontuário', 'Agendamento', 'Dia 11']
+    tags: ['SaaS Médico', 'Prontuário', 'Dia 11']
   },
   {
     id: 'stp-7',
@@ -758,8 +770,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Nanotecnologia e Farmácia',
-    description: 'Nanomateriais aplicados ao carreamento de fármacos e superfícies biomédicas ativas.',
-    tags: ['NanoTech', 'DeepTech', 'Farmacêutica', 'Dia 11']
+    tags: ['NanoTech', 'DeepTech', 'Dia 11']
   },
   {
     id: 'stp-8',
@@ -770,8 +781,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Saúde Materno-Infantil',
-    description: 'Plataforma especializada em monitoramento inteligente e suporte obstétrico e neonatal.',
-    tags: ['Materno-Infantil', 'Monitoramento', 'HealthTech', 'Dia 11']
+    tags: ['Materno-Infantil', 'HealthTech', 'Dia 11']
   },
   {
     id: 'stp-9',
@@ -782,8 +792,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Gestão Pet e Vet',
-    description: 'Sistema completo de gestão, agendamento de consultas e exames veterinários.',
-    tags: ['PetCare', 'VetTech', 'Gestão', 'Dia 11']
+    tags: ['PetCare', 'VetTech', 'Dia 11']
   },
   {
     id: 'stp-10',
@@ -794,8 +803,7 @@ export const STARTUPS_NERD = [
     date: '11 de Novembro',
     dayCode: '11',
     segment: 'Saúde e Inovação',
-    description: 'Solução especializada no ecossistema de saúde com foco em automação e conectividade de rotinas médicas.',
-    tags: ['HealthTech', 'Conectividade', 'Automação', 'Dia 11']
+    tags: ['HealthTech', 'Conectividade', 'Dia 11']
   },
 
   // Startups do Dia 12/11 (Radar Complementar)
@@ -808,7 +816,6 @@ export const STARTUPS_NERD = [
     date: '12 de Novembro',
     dayCode: '12',
     segment: 'Educação Médica',
-    description: 'Simulação clínica e casos de estudo práticos para profissionais de saúde.',
     tags: ['EdTech Saúde', 'Simulação', 'Dia 12']
   },
   {
@@ -820,7 +827,6 @@ export const STARTUPS_NERD = [
     date: '12 de Novembro',
     dayCode: '12',
     segment: 'IA Médica e Imagens',
-    description: 'Algoritmos de visão computacional e apoio à decisão diagnóstica em exames de imagem.',
     tags: ['IA Médica', 'DeepTech', 'Dia 12']
   },
   {
@@ -832,7 +838,6 @@ export const STARTUPS_NERD = [
     date: '12 de Novembro',
     dayCode: '12',
     segment: 'Neurotecnologia',
-    description: 'Monitoramento cognitivo e neurofeedback para foco e reabilitação.',
     tags: ['NeuroTech', 'Foco', 'Dia 12']
   },
   {
@@ -844,7 +849,6 @@ export const STARTUPS_NERD = [
     date: '12 de Novembro',
     dayCode: '12',
     segment: 'Biotoxicologia',
-    description: 'Ensaios toxicológicos preditivos in silico e celulares de alta fidelidade.',
     tags: ['BioTech', 'Ensaios', 'Dia 12']
   },
   {
@@ -856,7 +860,6 @@ export const STARTUPS_NERD = [
     date: '12 de Novembro',
     dayCode: '12',
     segment: 'Saúde Ocupacional',
-    description: 'Ergonomia ativa e prevenção de lesões por esforço repetitivo em empresas.',
     tags: ['Ergonomia', 'Saúde Ocupacional', 'Dia 12']
   },
 
@@ -870,7 +873,6 @@ export const STARTUPS_NERD = [
     date: '13 de Novembro',
     dayCode: '13',
     segment: 'Saúde Pública',
-    description: 'Gestão preventiva de saúde e triagem populacional em territórios vulneráveis.',
     tags: ['Saúde Cidadã', 'SUS', 'Dia 13']
   },
   {
@@ -882,7 +884,6 @@ export const STARTUPS_NERD = [
     date: '13 de Novembro',
     dayCode: '13',
     segment: 'Adesão Medicamentosa',
-    description: 'Acompanhamento de pacientes crônicos e controle de dosagens farmacêuticas.',
     tags: ['Farmácia', 'Adesão', 'Dia 13']
   },
   {
@@ -894,7 +895,6 @@ export const STARTUPS_NERD = [
     date: '13 de Novembro',
     dayCode: '13',
     segment: 'Integração de Dados',
-    description: 'Interoperabilidade de prontuários eletrônicos e fluxos clínicos.',
     tags: ['Interoperabilidade', 'HealthTech', 'Dia 13']
   },
   {
@@ -906,7 +906,6 @@ export const STARTUPS_NERD = [
     date: '13 de Novembro',
     dayCode: '13',
     segment: 'Saúde Mental',
-    description: 'Telepsicologia corporativa e acompanhamento emocional continuado.',
     tags: ['Saúde Mental', 'Psicologia', 'Dia 13']
   },
   {
@@ -918,7 +917,6 @@ export const STARTUPS_NERD = [
     date: '13 de Novembro',
     dayCode: '13',
     segment: 'Fisioterapia Veterinária',
-    description: 'Aparelhos e protocolos de reabilitação e ortopedia animal.',
     tags: ['VetTech', 'Reabilitação', 'Dia 13']
   }
 ];
@@ -1005,30 +1003,30 @@ Este documento mapeia as startups do ecossistema de saúde e biotecnologia que e
 ## Dia 11 de Novembro (Dia Principal de Networking)
 *Neste dia, as startups AnGV e Zyloq estarão expondo simultaneamente. Excelente oportunidade para criar conexões em bloco com visitantes da área da saúde.*
 
-* AnGV (Slot 3) - Saúde e Gestão
-* Antecipa Saúde (Slot 4) - Medicina Preventiva
-* Chamavet (Slot 6) - Saúde Animal e Vet
-* DHF Saúde (Slot 9) - Equipamentos e Suporte Hospitalar
-* Íris Biotec (Slot 21) - Pesquisa e Desenvolvimento em Biotecnologia
-* MedBooker (TECHCOD) (Slot 24) - Software de Agendamento e Clínicas
-* NanoMaPE (Slot 29) - Nanomateriais e Farmacêutica
-* Ninho Med - Exata Health Tech (Slot 30) - Monitoramento Materno-Infantil
-* PetBooker (Slot 33) - Gestão e Agendamento Pet e Vet
-* Zyloq (Slot 40) - Saúde, Automação e Inovação
+* **AnGV** (Slot 3)
+* **Antecipa Saúde** (Slot 4)
+* **Chamavet** (Slot 6)
+* **DHF Saúde** (Slot 9)
+* **Íris Biotec** (Slot 21)
+* **MedBooker (TECHCOD)** (Slot 24)
+* **NanoMaPE** (Slot 29)
+* **Ninho Med - Exata Health Tech** (Slot 30)
+* **PetBooker** (Slot 33)
+* **Zyloq** (Slot 40)
 
 ## Dia 12 de Novembro (Radar de Oportunidades)
-* Anamnese Case Co. (Slot 1)
-* DEEP MEDICA (Slot 12)
-* MindFocus (Slot 29)
-* NexusBioTox (Slot 30)
-* Wokibi (Slot 40)
+* **Anamnese Case Co.** (Slot 1)
+* **DEEP MEDICA** (Slot 12)
+* **MindFocus** (Slot 29)
+* **NexusBioTox** (Slot 30)
+* **Wokibi** (Slot 40)
 
 ## Dia 13 de Novembro (Radar de Oportunidades)
-* Innmobile / Prevê Saúde Cidadã (Slot 12)
-* Medme (Slot 17)
-* Novvus Healthtech (Slot 20)
-* Psi Talks (Slot 25)
-* TO Vet (Slot 33)`
+* **Innmobile / Prevê Saúde Cidadã** (Slot 12)
+* **Medme** (Slot 17)
+* **Novvus Healthtech** (Slot 20)
+* **Psi Talks** (Slot 25)
+* **TO Vet** (Slot 33)`
   },
   {
     id: 'info_empresas_saude_programacao',

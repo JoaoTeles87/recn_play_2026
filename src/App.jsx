@@ -175,9 +175,8 @@ export function App() {
         const matchesName = st.name.toLowerCase().includes(q);
         const matchesSlot = st.slot.toLowerCase().includes(q);
         const matchesSegment = st.segment.toLowerCase().includes(q);
-        const matchesDesc = st.description.toLowerCase().includes(q);
         const matchesTags = (st.tags || []).some(t => t.toLowerCase().includes(q));
-        if (!matchesName && !matchesSlot && !matchesSegment && !matchesDesc && !matchesTags) {
+        if (!matchesName && !matchesSlot && !matchesSegment && !matchesTags) {
           return false;
         }
       }
