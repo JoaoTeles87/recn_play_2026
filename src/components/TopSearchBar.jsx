@@ -18,8 +18,8 @@ export function TopSearchBar({
   const isNerdActive = selectedBuildingFilter === 18;
 
   return (
-    <section 
-      aria-label="Barra de busca e filtros acessíveis" 
+    <section
+      aria-label="Barra de busca e filtros acessíveis"
       className="bg-white border-b border-slate-200/90 shadow-sm sticky top-[73px] z-20 px-4 py-2.5 max-w-md mx-auto w-full transition-all"
     >
       {/* Campo de Busca Principal - Altura Acessível de 48px para Toque Confortável */}
@@ -34,7 +34,7 @@ export function TopSearchBar({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Buscar saúde, SUS, MV, IA, palestrante..."
+            placeholder="Buscar saúde, palestrante..."
             className="w-full min-h-[48px] pl-11 pr-12 rounded-xl bg-slate-50 border-2 border-slate-300 text-sm font-semibold text-slate-900 placeholder:text-slate-500 placeholder:font-normal focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all"
           />
           {searchQuery && (
@@ -61,11 +61,10 @@ export function TopSearchBar({
             }
           }}
           aria-pressed={isHealthActive}
-          className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-black flex items-center space-x-1.5 whitespace-nowrap transition-all border-2 active:scale-95 ${
-            isHealthActive
+          className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-black flex items-center space-x-1.5 whitespace-nowrap transition-all border-2 active:scale-95 ${isHealthActive
               ? 'bg-emerald-600 text-white border-emerald-700 shadow-md shadow-emerald-600/25'
               : 'bg-emerald-50 text-emerald-900 border-emerald-300 hover:bg-emerald-100'
-          }`}
+            }`}
         >
           <Stethoscope className="w-4 h-4 shrink-0" />
           <span>Foco Saúde</span>
@@ -81,11 +80,10 @@ export function TopSearchBar({
             }
           }}
           aria-pressed={isNerdActive}
-          className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-black flex items-center space-x-1.5 whitespace-nowrap transition-all border-2 active:scale-95 ${
-            isNerdActive
+          className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-black flex items-center space-x-1.5 whitespace-nowrap transition-all border-2 active:scale-95 ${isNerdActive
               ? 'bg-orange-600 text-white border-orange-700 shadow-md shadow-orange-600/25'
               : 'bg-orange-50 text-orange-950 border-orange-300 hover:bg-orange-100'
-          }`}
+            }`}
         >
           <Building className="w-4 h-4 shrink-0" />
           <span>Edifício NERD (18)</span>
@@ -95,11 +93,10 @@ export function TopSearchBar({
         <button
           onClick={() => setShowOnlyBookmarks(!showOnlyBookmarks)}
           aria-pressed={showOnlyBookmarks}
-          className={`min-h-[44px] px-3 py-2 rounded-xl text-xs font-black flex items-center space-x-1.5 whitespace-nowrap transition-all border-2 active:scale-95 ${
-            showOnlyBookmarks
+          className={`min-h-[44px] px-3 py-2 rounded-xl text-xs font-black flex items-center space-x-1.5 whitespace-nowrap transition-all border-2 active:scale-95 ${showOnlyBookmarks
               ? 'bg-amber-500 text-white border-amber-600 shadow-md'
               : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-          }`}
+            }`}
         >
           <Bookmark className="w-4 h-4 shrink-0" />
           <span>Salvos</span>
@@ -131,3 +128,4 @@ export function TopSearchBar({
     </section>
   );
 }
+
