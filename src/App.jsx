@@ -38,8 +38,8 @@ export function App() {
   const [isMapCollapsed, setIsMapCollapsed] = useState(false);
 
   // Estados de Origem e Destino para Navegação
-  const [originId, setOriginId] = useState('18'); // Padrão: Prédio 18 - Edifício NERD
-  const [destinationId, setDestinationId] = useState('26'); // Padrão: Prédio 26 - Moinho Recife
+  const [originId, setOriginId] = useState('marco-zero'); // Padrão: Marco Zero (Ponto de chegada natural no Bairro)
+  const [destinationId, setDestinationId] = useState('18'); // Padrão: Prédio 18 - Edifício NERD (Healthtechs)
 
   // Estados de Filtro Simplificados e Focados em Saúde
   const [searchQuery, setSearchQuery] = useState('');
@@ -250,7 +250,7 @@ export function App() {
       )}
 
       {/* Conteúdo Principal Abaixo do Mapa */}
-      <main id="content-list-section" className="flex-1 w-full max-w-md mx-auto px-4 pt-3 pb-28">
+      <main id="content-list-section" className="flex-1 w-full max-w-md mx-auto px-4 pt-3 pb-20">
         {/* Banner de Aviso de Foco Exclusivo em Saúde e Apenas Dia 11/11 */}
         {activeTab !== 'docs' && (
           <div className="bg-emerald-50 border-2 border-emerald-400/80 rounded-2xl p-3.5 mb-3 shadow-sm flex items-start space-x-3">
@@ -533,14 +533,10 @@ export function App() {
         {activeTab === 'docs' && <DocsView />}
       </main>
 
-      {/* Barra Inferior Fixa (Bottom Navigation) com [ BUSCAR / FILTRAR ] e [ LIMPAR ] */}
+      {/* Barra Inferior Fixa (Bottom Navigation) Limpa e Focada em Abas */}
       <BottomBar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenFilter={() => setIsFilterModalOpen(true)}
-        onClearFilters={handleClearFilters}
-        hasActiveFilters={hasActiveFilters}
-        activeFilterCount={activeFilterCount}
       />
 
       {/* Modal / Sheet de Filtros e Busca */}
