@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Header } from './components/Header';
+import { TopSearchBar } from './components/TopSearchBar';
 import { MapView } from './components/MapView';
 import { EventCard } from './components/EventCard';
 import { StartupCard } from './components/StartupCard';
@@ -8,7 +9,7 @@ import { FilterModal } from './components/FilterModal';
 import { DocsView } from './components/DocsView';
 import { RoutePlanner } from './components/RoutePlanner';
 import { EVENTS, STARTUPS_NERD, BUILDINGS } from './data/mockData';
-import { Calendar, Building, Sparkles, AlertCircle, Bookmark, CheckCircle2, MapPin, ChevronRight, Footprints, AlertTriangle, Compass } from 'lucide-react';
+import { Calendar, Building, AlertCircle, Bookmark, MapPin, ChevronRight, Footprints, Stethoscope, Compass } from 'lucide-react';
 
 export function App() {
   // Aba ativa: 'programacao' | 'startups' | 'mapa' | 'docs'
@@ -27,7 +28,7 @@ export function App() {
     return 'programacao';
   });
 
-  // Atualiza hash da URL ao mudar de aba para permitir links diretos (ex: /#docs)
+  // Atualiza hash da URL ao mudar de aba
   useEffect(() => {
     window.location.hash = activeTab;
   }, [activeTab]);
@@ -40,10 +41,9 @@ export function App() {
   const [originId, setOriginId] = useState('18'); // Padrão: Prédio 18 - Edifício NERD
   const [destinationId, setDestinationId] = useState('26'); // Padrão: Prédio 26 - Moinho Recife
 
-  // Estados de Filtro
+  // Estados de Filtro Simplificados e Focados em Saúde
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTrack, setSelectedTrack] = useState('all'); // 'all' | 'saude' | 'tech' | 'negocios'
-  const [selectedPeriod, setSelectedPeriod] = useState('all'); // 'all' | 'manha' | 'tarde' | 'noite'
   const [selectedBuildingFilter, setSelectedBuildingFilter] = useState(null);
   const [showOnlyBookmarks, setShowOnlyBookmarks] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -80,7 +80,6 @@ export function App() {
   const handleClearFilters = () => {
     setSearchQuery('');
     setSelectedTrack('all');
-    setSelectedPeriod('all');
     setSelectedBuildingFilter(null);
     setShowOnlyBookmarks(false);
     setSelectedBuildingId(null);
@@ -89,14 +88,12 @@ export function App() {
   const hasActiveFilters = Boolean(
     searchQuery ||
     selectedTrack !== 'all' ||
-    selectedPeriod !== 'all' ||
     selectedBuildingFilter !== null ||
     showOnlyBookmarks
   );
 
   const activeFilterCount = (searchQuery ? 1 : 0) +
     (selectedTrack !== 'all' ? 1 : 0) +
-    (selectedPeriod !== 'all' ? 1 : 0) +
     (selectedBuildingFilter !== null ? 1 : 0) +
     (showOnlyBookmarks ? 1 : 0);
 
@@ -125,7 +122,7 @@ export function App() {
     }
   };
 
-  // Filtro de Eventos
+  // Filtro de Eventos focado em acessibilidade e busca
   const filteredEvents = useMemo(() => {
     return EVENTS.filter(event => {
       if (searchQuery.trim()) {
@@ -144,13 +141,6 @@ export function App() {
         return false;
       }
 
-      if (selectedPeriod !== 'all') {
-        const startHour = parseInt(event.time.split(':')[0], 10);
-        if (selectedPeriod === 'manha' && startHour >= 12) return false;
-        if (selectedPeriod === 'tarde' && (startHour < 12 || startHour >= 18)) return false;
-        if (selectedPeriod === 'noite' && startHour < 18) return false;
-      }
-
       if (selectedBuildingFilter !== null && event.buildingId !== selectedBuildingFilter) {
         return false;
       }
@@ -161,7 +151,7 @@ export function App() {
 
       return true;
     });
-  }, [searchQuery, selectedTrack, selectedPeriod, selectedBuildingFilter, showOnlyBookmarks, bookmarkedEventIds]);
+  }, [searchQuery, selectedTrack, selectedBuildingFilter, showOnlyBookmarks, bookmarkedEventIds]);
 
   // Filtro de Startups do NERD
   const filteredStartups = useMemo(() => {
@@ -216,7 +206,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-900">
       {/* Topo Institucional Mobile-First com Disclaimer */}
       <Header
         activeTab={activeTab}
@@ -225,6 +215,23 @@ export function App() {
         setIsMapCollapsed={setIsMapCollapsed}
         activeFilterCount={activeFilterCount}
       />
+
+      {/* PROPOSTA: Filtro e Busca em cima de tudo com alto padrão de acessibilidade */}
+      {activeTab !== 'docs' && (
+        <TopSearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedTrack={selectedTrack}
+          setSelectedTrack={setSelectedTrack}
+          selectedBuildingFilter={selectedBuildingFilter}
+          setSelectedBuildingFilter={setSelectedBuildingFilter}
+          showOnlyBookmarks={showOnlyBookmarks}
+          setShowOnlyBookmarks={setShowOnlyBookmarks}
+          onClearFilters={handleClearFilters}
+          resultCount={totalResultsCount}
+          activeFilterCount={activeFilterCount}
+        />
+      )}
 
       {/* Área Central: Mapa Interativo com Arrastar, Zoom e Traçado de Rotas a Pé */}
       {activeTab !== 'docs' && (
@@ -244,29 +251,8 @@ export function App() {
 
       {/* Conteúdo Principal Abaixo do Mapa */}
       <main id="content-list-section" className="flex-1 w-full max-w-md mx-auto px-4 pt-3 pb-28">
-        {/* Banner de Roteiro e Filtros Ativos (se houver filtros) */}
-        {hasActiveFilters && (
-          <div className="mb-3 p-3 bg-purple-50 border border-purple-200 rounded-2xl flex items-center justify-between shadow-sm animate-in fade-in">
-            <div className="flex items-center space-x-2 text-xs text-purple-900">
-              <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span>
-              <span className="font-semibold">
-                Filtros ativos ({activeFilterCount}):{' '}
-                {selectedBuildingFilter && `Prédio ${selectedBuildingFilter} `}
-                {selectedTrack !== 'all' && `• ${selectedTrack} `}
-                {searchQuery && `• "${searchQuery}"`}
-              </span>
-            </div>
-            <button
-              onClick={handleClearFilters}
-              className="text-[11px] font-bold text-purple-700 hover:text-purple-900 underline ml-2 shrink-0"
-            >
-              Limpar
-            </button>
-          </div>
-        )}
-
-        {/* Planejador de Rotas de Origem e Destino (Visível na aba de Mapa ou através de botão) */}
-        {(activeTab === 'mapa' || activeTab === 'programacao') && (
+        {/* Planejador de Rotas de Origem e Destino (Visível na aba de Mapa) */}
+        {activeTab === 'mapa' && (
           <RoutePlanner
             originId={originId}
             setOriginId={setOriginId}
@@ -280,124 +266,68 @@ export function App() {
         )}
 
         {/* ============================================================== */}
-        {/* ABA 1: PROGRAMAÇÃO DO DIA 11 */}
+        {/* ABA 1: PROGRAMAÇÃO DO DIA 11 (Foco em Saúde e Acessibilidade) */}
         {/* ============================================================== */}
         {activeTab === 'programacao' && (
           <div className="space-y-3">
-            {/* Header da Seção com Chips Rápidos de Trilha */}
-            <div className="flex items-center justify-between pb-1">
+            {/* Cabeçalho da Seção */}
+            <div className="flex items-center justify-between pb-1 pt-1">
               <div>
-                <h2 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center space-x-1.5">
-                  <Calendar className="w-4 h-4 text-purple-700" />
+                <h2 className="text-base font-black text-slate-900 tracking-tight flex items-center space-x-1.5">
+                  <Calendar className="w-5 h-5 text-purple-700" />
                   <span>Programação do Dia 11/11</span>
                 </h2>
-                <p className="text-[11px] text-slate-500">
-                  Painéis estratégicos em Saúde, IA e Negócios
+                <p className="text-xs text-slate-600 font-medium mt-0.5">
+                  Foco em Saúde, IA e Negócios no Bairro
                 </p>
               </div>
-              <span className="text-[11px] font-bold bg-slate-200/80 text-slate-700 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-black bg-purple-100 text-purple-900 px-3 py-1 rounded-full border border-purple-200">
                 {filteredEvents.length} {filteredEvents.length === 1 ? 'atividade' : 'atividades'}
               </span>
             </div>
 
-            {/* Chips de Seleção Rápida de Trilha e Filtro de Turno */}
-            <div className="flex space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
-              {[
-                { id: 'all', label: 'Todos' },
-                { id: 'saude', label: '🏥 Saúde e SUS' },
-                { id: 'tech', label: '🤖 IA e Deep Tech' },
-                { id: 'negocios', label: '📈 Negócios e Gestão' }
-              ].map(t => (
-                <button
-                  key={t.id}
-                  onClick={() => setSelectedTrack(t.id)}
-                  className={`px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${
-                    selectedTrack === t.id
-                      ? 'bg-purple-700 text-white border-purple-700 shadow-sm'
-                      : 'bg-white text-slate-700 border-slate-200/90 hover:bg-slate-50'
-                  }`}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Linha de Filtro por Turno (Manhã / Tarde / Noite) + Toggle Meu Roteiro */}
-            <div className="flex items-center justify-between pt-1">
-              <div className="flex items-center space-x-1 bg-white p-1 rounded-xl border border-slate-200/80 text-[10px] font-bold">
-                {[
-                  { id: 'all', label: 'Dia Todo' },
-                  { id: 'manha', label: 'Manhã' },
-                  { id: 'tarde', label: 'Tarde' },
-                  { id: 'noite', label: 'Noite' }
-                ].map(p => (
-                  <button
-                    key={p.id}
-                    onClick={() => setSelectedPeriod(p.id)}
-                    className={`px-2 py-0.5 rounded-lg transition-all ${
-                      selectedPeriod === p.id
-                        ? 'bg-purple-100 text-purple-900 font-extrabold'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Botão Rápido Meu Roteiro */}
-              <button
-                onClick={() => setShowOnlyBookmarks(!showOnlyBookmarks)}
-                className={`px-2.5 py-1 rounded-xl text-[11px] font-bold flex items-center space-x-1 border transition-all ${
-                  showOnlyBookmarks
-                    ? 'bg-amber-500 text-white border-amber-500 shadow-sm'
-                    : 'bg-white text-slate-700 border-slate-200/90 hover:bg-amber-50'
-                }`}
-              >
-                <Bookmark className="w-3 h-3" />
-                <span>Salvos ({bookmarkedEventIds.length})</span>
-              </button>
-            </div>
-
-            {/* Banner de Compartilhamento se estiver no modo "Meu Roteiro" e houver itens */}
+            {/* Banner de Roteiro Salvo com Botão Grande de Compartilhar no WhatsApp */}
             {showOnlyBookmarks && bookmarkedEventIds.length > 0 && (
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-between shadow-sm animate-in fade-in">
+              <div className="p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl flex items-center justify-between shadow-sm animate-in fade-in">
                 <div>
-                  <p className="text-xs font-bold text-amber-950">Seu Roteiro Personalizado</p>
-                  <p className="text-[10px] text-amber-800">{bookmarkedEventIds.length} atividades selecionadas para o dia 11</p>
+                  <p className="text-sm font-black text-amber-950">Seu Roteiro Salvo</p>
+                  <p className="text-xs text-amber-900 mt-0.5">{bookmarkedEventIds.length} atividades salvas para o dia 11</p>
                 </div>
                 <button
                   onClick={handleShareBookmarks}
-                  className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-[11px] font-extrabold flex items-center space-x-1 shadow-sm transition-all"
+                  className="min-h-[44px] px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-black flex items-center space-x-1.5 shadow-md shadow-emerald-600/30 transition-all"
                 >
                   <span>WhatsApp</span>
                 </button>
               </div>
             )}
 
-            {/* Card Destaque para Edifício NERD (Prédio 18 - Canto Inferior Esquerdo) */}
-            {!selectedBuildingFilter && selectedTrack === 'all' && (
+            {/* Card Destaque Acessível para Edifício NERD (Prédio 18 - Canto Inferior Esquerdo) */}
+            {!selectedBuildingFilter && (
               <div 
                 onClick={() => handleLocateOnMap(18)}
-                className="cursor-pointer bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 text-white p-3.5 rounded-2xl shadow-sm flex items-center justify-between hover:brightness-105 transition-all"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleLocateOnMap(18)}
+                className="cursor-pointer bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 text-white p-4 rounded-2xl shadow-md flex items-center justify-between hover:brightness-105 active:scale-[0.99] transition-all min-h-[56px]"
               >
-                <div className="flex items-center space-x-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center font-black text-sm">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center font-black text-base shrink-0">
                     18
                   </div>
                   <div>
                     <p className="text-[10px] font-black uppercase tracking-wider text-orange-200">
-                      Ponto Central (Canto Inferior Esquerdo)
+                      Ponto Central das HealthTechs
                     </p>
-                    <p className="text-xs font-bold leading-tight">
+                    <p className="text-sm font-black leading-tight">
                       Arena de Negócios – Edifício NERD
                     </p>
-                    <p className="text-[11px] text-orange-100 mt-0.5">
-                      Palcos Asa Branca, Carcará e estandes das HealthTechs
+                    <p className="text-xs text-orange-100 mt-0.5">
+                      Palcos Asa Branca, Carcará e estandes das startups
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-white/80 shrink-0" />
+                <ChevronRight className="w-6 h-6 text-white shrink-0 ml-2" />
               </div>
             )}
 
@@ -415,17 +345,17 @@ export function App() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-10 px-4 bg-white rounded-2xl border border-slate-200">
-                <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-                <h3 className="text-sm font-bold text-slate-800">Nenhuma palestra encontrada</h3>
-                <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                  Tente alterar seus termos de busca ou limpar os filtros para ver toda a programação.
+              <div className="text-center py-10 px-4 bg-white rounded-2xl border-2 border-slate-200 shadow-sm">
+                <AlertCircle className="w-10 h-10 text-slate-400 mx-auto mb-2" />
+                <h3 className="text-base font-black text-slate-900">Nenhuma palestra encontrada</h3>
+                <p className="text-xs text-slate-600 mt-1 max-w-xs mx-auto">
+                  Tente alterar seus termos de busca ou clique no botão abaixo para restaurar todos os eventos de saúde.
                 </p>
                 <button
                   onClick={handleClearFilters}
-                  className="mt-3 px-4 py-2 rounded-xl bg-purple-700 text-white text-xs font-bold shadow-sm"
+                  className="mt-4 min-h-[48px] px-6 py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-xs font-black shadow-md active:scale-95 transition-all"
                 >
-                  Limpar Todos os Filtros
+                  Ver Todos os Eventos
                 </button>
               </div>
             )}
@@ -438,38 +368,38 @@ export function App() {
         {activeTab === 'startups' && (
           <div className="space-y-3">
             {/* Header da Seção */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+            <div className="bg-white rounded-2xl p-4 border-2 border-slate-200 shadow-sm">
               <div className="flex items-center space-x-2 text-xs font-extrabold text-orange-600 uppercase tracking-wide">
-                <span className="w-2 h-2 rounded-full bg-orange-500"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
                 <span>Prédio 18 • Arena Pernambuco de Negócios (NERD)</span>
               </div>
-              <h2 className="text-base font-extrabold text-slate-900 mt-0.5">
+              <h2 className="text-base font-black text-slate-900 mt-1">
                 Startups de Saúde, Biotech e Vet
               </h2>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Expositores mapeados no Edifício NERD (canto inferior esquerdo do mapa). No dia 11/11, as healthtechs e biotechs estarão reunidas nos slots de exposição.
               </p>
 
-              {/* Seletor de Dia das Startups */}
-              <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[11px] font-bold text-slate-600">Exposição:</span>
-                <div className="flex space-x-1">
+              {/* Seletor de Dia com Botões Acessíveis (Touch-friendly 44px) */}
+              <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-xs font-black text-slate-700">Exposição:</span>
+                <div className="flex space-x-1.5">
                   <button
                     onClick={() => setStartupDayFilter('11')}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                    className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-black transition-all active:scale-95 ${
                       startupDayFilter === '11'
-                        ? 'bg-orange-500 text-white shadow-sm'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-orange-600 text-white shadow-md'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300'
                     }`}
                   >
                     Dia 11 (Principal)
                   </button>
                   <button
                     onClick={() => setStartupDayFilter('all')}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                    className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-black transition-all active:scale-95 ${
                       startupDayFilter === 'all'
-                        ? 'bg-slate-800 text-white shadow-sm'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-slate-800 text-white shadow-md'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300'
                     }`}
                   >
                     Ver Todos os Dias
@@ -490,17 +420,17 @@ export function App() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-10 px-4 bg-white rounded-2xl border border-slate-200">
-                <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-                <h3 className="text-sm font-bold text-slate-800">Nenhuma startup encontrada</h3>
-                <p className="text-xs text-slate-500 mt-1">
+              <div className="text-center py-10 px-4 bg-white rounded-2xl border-2 border-slate-200 shadow-sm">
+                <AlertCircle className="w-10 h-10 text-slate-400 mx-auto mb-2" />
+                <h3 className="text-base font-black text-slate-900">Nenhuma startup encontrada</h3>
+                <p className="text-xs text-slate-600 mt-1">
                   Verifique a busca ou limpe os filtros para visualizar a lista completa.
                 </p>
                 <button
                   onClick={handleClearFilters}
-                  className="mt-3 px-4 py-2 rounded-xl bg-orange-600 text-white text-xs font-bold shadow-sm"
+                  className="mt-4 min-h-[48px] px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-black shadow-md active:scale-95 transition-all"
                 >
-                  Limpar Filtros
+                  Ver Todas as Startups
                 </button>
               </div>
             )}
@@ -512,18 +442,18 @@ export function App() {
         {/* ============================================================== */}
         {activeTab === 'mapa' && (
           <div className="space-y-3">
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
-              <h2 className="text-sm font-extrabold text-slate-900 flex items-center space-x-1.5">
-                <MapPin className="w-4 h-4 text-purple-700" />
+            <div className="bg-white rounded-2xl p-4 border-2 border-slate-200 shadow-sm">
+              <h2 className="text-base font-black text-slate-900 flex items-center space-x-1.5">
+                <MapPin className="w-5 h-5 text-purple-700" />
                 <span>Navegação e Distâncias a Pé no Bairro</span>
               </h2>
               <p className="text-xs text-slate-600 mt-1">
-                Utilize o seletor acima para traçar a rota entre quaisquer dois locais do evento, ou toque em um polo abaixo para traçar a rota a partir da sua origem:
+                Utilize o seletor acima para traçar a rota a pé entre quaisquer dois locais do evento, ou toque em um polo abaixo para traçar a rota:
               </p>
             </div>
 
             {/* Lista dos Prédios Mapeados */}
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {BUILDINGS.map(b => (
                 <div
                   key={b.id}
@@ -531,14 +461,17 @@ export function App() {
                     setDestinationId(String(b.id));
                     handleLocateOnMap(b.id);
                   }}
-                  className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && handleLocateOnMap(b.id)}
+                  className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between min-h-[54px] ${
                     selectedBuildingId === b.id
-                      ? 'bg-purple-50 border-purple-400 shadow-sm'
-                      : 'bg-white border-slate-200/90 hover:border-slate-300'
+                      ? 'bg-purple-50 border-purple-500 shadow-sm'
+                      : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-start space-x-3">
-                    <span className={`w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs text-white shrink-0 ${
+                    <span className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-xs text-white shrink-0 ${
                       b.id === 18 
                         ? 'bg-orange-500 shadow-sm shadow-orange-500/30' 
                         : b.id === 26 
@@ -549,23 +482,23 @@ export function App() {
                     </span>
                     <div>
                       <div className="flex items-center space-x-1.5">
-                        <h3 className="text-xs font-extrabold text-slate-900 leading-tight">
+                        <h3 className="text-xs font-black text-slate-900 leading-tight">
                           {b.name}
                         </h3>
                         {b.id === 18 && (
-                          <span className="text-[9px] bg-orange-100 text-orange-800 font-bold px-1 rounded">
+                          <span className="text-[10px] bg-orange-100 text-orange-900 font-extrabold px-1.5 py-0.2 rounded">
                             NERD
                           </span>
                         )}
                       </div>
                       <p className="text-[11px] text-slate-500 mt-0.5">{b.address}</p>
-                      <p className="text-[10px] text-cyan-600 font-bold mt-1 flex items-center">
-                        <Footprints className="w-3 h-3 mr-1" />
+                      <p className="text-[11px] text-cyan-700 font-extrabold mt-1 flex items-center">
+                        <Footprints className="w-3.5 h-3.5 mr-1" />
                         {b.walkTimeFromNerd} ({b.walkDist})
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
+                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0 ml-2" />
                 </div>
               ))}
             </div>
