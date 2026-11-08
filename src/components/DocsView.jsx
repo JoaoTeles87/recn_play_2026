@@ -19,16 +19,16 @@ export function DocsView() {
   return (
     <div className="max-w-md mx-auto px-4 py-4 pb-28 animate-in fade-in duration-200">
       {/* Topo do Visualizador de Documentação */}
-      <div className="bg-gradient-to-r from-purple-800 to-indigo-900 rounded-2xl p-4 text-white shadow-md mb-4">
-        <div className="flex items-center space-x-2 text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+      <div className="bg-gradient-to-r from-emerald-800 to-teal-900 rounded-2xl p-4 text-white shadow-md mb-4 border border-emerald-700/50">
+        <div className="flex items-center space-x-2 text-xs font-bold text-emerald-200 uppercase tracking-wider mb-1">
           <BookOpen className="w-3.5 h-3.5 text-orange-400" />
-          <span>Base de Conhecimento e Dados Oficiais</span>
+          <span>Base de Conhecimento em Saúde • Apenas Dia 11/11</span>
         </div>
         <h2 className="text-base font-extrabold leading-tight">
-          Documentos e Referências .md
+          Documentos e Referências de Saúde .md
         </h2>
-        <p className="text-xs text-purple-200 mt-1">
-          Transparência total dos dados brutos utilizados pelo panfleto virtual para o dia 11 de Novembro.
+        <p className="text-xs text-emerald-100 mt-1">
+          Consulta aberta aos arquivos de programação, mapa oficial e mapeamento de startups de saúde para o dia 11 de Novembro.
         </p>
       </div>
 

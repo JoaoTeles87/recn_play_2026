@@ -251,6 +251,28 @@ export function App() {
 
       {/* Conteúdo Principal Abaixo do Mapa */}
       <main id="content-list-section" className="flex-1 w-full max-w-md mx-auto px-4 pt-3 pb-28">
+        {/* Banner de Aviso de Foco Exclusivo em Saúde e Apenas Dia 11/11 */}
+        {activeTab !== 'docs' && (
+          <div className="bg-emerald-50 border-2 border-emerald-400/80 rounded-2xl p-3.5 mb-3 shadow-sm flex items-start space-x-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+              <Stethoscope className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1 text-xs">
+              <div className="flex items-center space-x-1.5 flex-wrap">
+                <span className="font-black text-emerald-950 uppercase tracking-wide text-[11px]">
+                  Guia do Visitante de Saúde
+                </span>
+                <span className="bg-emerald-200 text-emerald-950 font-black text-[10px] px-2 py-0.5 rounded-full border border-emerald-300">
+                  Apenas Dia 11/11
+                </span>
+              </div>
+              <p className="text-emerald-900 text-xs mt-1 leading-relaxed">
+                Este panfleto virtual reúne <strong>exclusivamente as palestras, painéis e startups de Saúde e Gestão do dia 11 de Novembro</strong>. Não contempla a programação dos outros dias do festival.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Planejador de Rotas de Origem e Destino (Visível na aba de Mapa) */}
         {activeTab === 'mapa' && (
           <RoutePlanner
@@ -274,14 +296,14 @@ export function App() {
             <div className="flex items-center justify-between pb-1 pt-1">
               <div>
                 <h2 className="text-base font-black text-slate-900 tracking-tight flex items-center space-x-1.5">
-                  <Calendar className="w-5 h-5 text-purple-700" />
-                  <span>Programação do Dia 11/11</span>
+                  <Calendar className="w-5 h-5 text-emerald-700" />
+                  <span>Palestras de Saúde (11/11)</span>
                 </h2>
                 <p className="text-xs text-slate-600 font-medium mt-0.5">
-                  Foco em Saúde, IA e Negócios no Bairro
+                  Programação exclusiva do dia 11: SUS, IA Médica e Gestão
                 </p>
               </div>
-              <span className="text-xs font-black bg-purple-100 text-purple-900 px-3 py-1 rounded-full border border-purple-200">
+              <span className="text-xs font-black bg-emerald-100 text-emerald-900 px-3 py-1 rounded-full border border-emerald-200">
                 {filteredEvents.length} {filteredEvents.length === 1 ? 'atividade' : 'atividades'}
               </span>
             </div>
@@ -374,10 +396,10 @@ export function App() {
                 <span>Prédio 18 • Arena Pernambuco de Negócios (NERD)</span>
               </div>
               <h2 className="text-base font-black text-slate-900 mt-1">
-                Startups de Saúde, Biotech e Vet
+                Startups de Saúde, Biotech e Vet (Dia 11/11)
               </h2>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                Expositores mapeados no Edifício NERD (canto inferior esquerdo do mapa). No dia 11/11, as healthtechs e biotechs estarão reunidas nos slots de exposição.
+                Expositores de saúde humana, animal, diagnósticos e biotecnologia mapeados na Arena NERD (canto inferior esquerdo do mapa). No <strong>dia 11/11</strong>, essas startups estarão ativas nos seus respectivos slots de exposição.
               </p>
 
               {/* Seletor de Dia com Botões Acessíveis (Touch-friendly 44px) */}
